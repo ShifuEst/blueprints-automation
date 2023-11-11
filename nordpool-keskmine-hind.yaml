@@ -1,4 +1,4 @@
-blueprint:  #  This should be at the top level
+blueprint:
   name: Price-based Switch Control
   description: Control switches based on NordPool sensor prices.
 
@@ -17,7 +17,7 @@ input:
   max_price:
     name: Maksimaalne hind
     description: Maksimaalne hind, millest madalamal lülitatakse sisse
-    default: 5.0 # Muuda vastavalt soovile
+    default: 5.0
 
 variables:
   _price: !input price_entity
@@ -28,7 +28,7 @@ variables:
 trigger:
   - platform: time_pattern
     minutes: 0
-    seconds: 15 # väike viivitus täistunnist
+    seconds: 15
 
 action:
   - service: >
