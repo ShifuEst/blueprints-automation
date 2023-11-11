@@ -1,5 +1,5 @@
 blueprint:
-  name: "NordPool: keskmine hind"
+  name: "NordPool: keskmine hind TESTIME"
   description: Lülitab seadme sisse, kui börsihind on alla ööpäeva keskmise, samuti välja, kui üle keskmise
   domain: automation
   input:
