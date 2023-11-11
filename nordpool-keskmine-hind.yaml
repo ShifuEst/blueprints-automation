@@ -1,6 +1,11 @@
-blueprint: &blueprint
+# Blueprint: Price-based Switch Control
+# Description: Control switches based on NordPool sensor prices.
+# Source: https://your-source-url.com
+
+blueprint:
   name: Price-based Switch Control
   description: Control switches based on NordPool sensor prices.
+  domain: automation
 
 input:
   price_entity:
@@ -19,24 +24,17 @@ input:
     description: Maksimaalne hind, millest madalamal lülitatakse sisse
     default: 5.0
 
-variables:
-  _price: !input price_entity
-  price_now: "{{ states(_price) | float }}"
-  price_avg: "{{ state_attr(_price, 'average') | float }}"
-  max_price: !input max_price
-
 trigger:
-  - platform: time_pattern
-    minutes: 0
-    seconds: 15
+  platform: time_pattern
+  minutes: 0
+  seconds: 15
 
 action:
-  - service: >
-      {% if price_now <= price_avg and price_now <= max_price %}
-        switch.turn_on
-      {% else %}
-        switch.turn_off
-      {% endif %}
-    alias: "Hind on alla keskmise ja maksimaalse, lülitan lülitid ümber"
-    target:
-      entity_id: !input switch
+  service: >
+    {% if states(input.price_entity) | float <= input.max_price %}
+      switch.turn_on
+    {% else %}
+      switch.turn_off
+    {% endif %}
+  target:
+    entity_id: input.switch
