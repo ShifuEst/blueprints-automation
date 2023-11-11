@@ -1,4 +1,4 @@
-blueprint:
+blueprint:  # This should be at the top level
   name: Price-based Switch Control
   description: Control switches based on NordPool sensor prices.
 
